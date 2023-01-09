@@ -27,7 +27,7 @@ class PreparationTacheController extends Controller
     {
         //afficher touts les briefs
         $brief=PreparationBrief::all();
-        //pagination
+        //pagination   
         $tasks =PreparationTache::paginate(3);
         // return view
         return view('tasks.index',['brief'=>$brief,'tasks'=>$tasks]);
