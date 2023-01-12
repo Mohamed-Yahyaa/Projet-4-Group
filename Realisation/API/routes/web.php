@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\googleController;
 use App\Http\Controllers\PreparationTacheController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TacheController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -47,3 +48,16 @@ Route::get('dashboard',[DashboardController::class,"index"])->name('dashboard');
 
 Route::get('google-auth',[googleController::class,'redirect'])->name('google-auth');
 Route::get('auth/google/call-back',[googleController::class,'callbackGoogle']);
+
+Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath',"auth" ]],function(){
+
+
+    Route::resource('tache', TacheController::class);
+    Route::get('/',[TacheController::class,'index'])->name('index');
+    Route::get('exportexcel',[TacheController::class,'exportexcel'])->name('exportexcel');
+    Route::post('importexcel',[TacheController::class,'importexcel'])->name('importexcel');
+    route::get('/filter_brief',[TacheController::class,'filter_brief'])->name('filter_brief');
+    route::get('/Search_tache',[TacheController::class,'search_tache'])->name('Search_tache');
+    route::get('/generatepdf',[TacheController::class,'generatepdf'])->name('generate');
+
+});
